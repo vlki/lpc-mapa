@@ -1,0 +1,89 @@
+import React from "react";
+import { icon } from "leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import { uniq } from "lodash";
+
+const Map = ({ offices, peopleByDistricts }) => {
+  const peopleMarkers = React.useMemo(() => {
+    const markers = [];
+
+    Object.keys(peopleByDistricts).forEach((district) => {
+      for (let i = 0; i < peopleByDistricts[district]; i++) {
+        markers.push({
+          position: districtPositions[district]
+            ? districtPositions[district]
+            : mapContainerCenter,
+          popupLabel: "Dobrovolník v regionu " + district,
+        });
+      }
+    });
+
+    return markers;
+  }, [peopleByDistricts]);
+
+  return (
+    <MapContainer
+      center={mapContainerCenter}
+      zoom={7}
+      scrollWheelZoom={false}
+      style={{ width: "100%", height: 400 }}
+    >
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <MarkerClusterGroup maxClusterRadius={5}>
+        {peopleMarkers.map((marker, markerIndex) => (
+          <Marker
+            key={`person-${markerIndex}`}
+            icon={markerIcon}
+            position={marker.position}
+          >
+            <Popup>{marker.popupLabel}</Popup>
+          </Marker>
+        ))}
+        {offices.map((office, officeIndex) => (
+          <Marker
+            key={`office-${officeIndex}`}
+            icon={markerIcon}
+            position={office}
+          >
+            <Popup>
+              <strong>{office.name}</strong>
+              <br />
+              Ordinace na adrese {office.address}
+            </Popup>
+          </Marker>
+        ))}
+      </MarkerClusterGroup>
+    </MapContainer>
+  );
+};
+
+export default Map;
+
+// Center Czechia
+const mapContainerCenter = [49.8, 15.6];
+
+const markerIcon = icon({
+  iconUrl: "marker-icon.png",
+  iconSize: [25, 41],
+});
+
+const districtPositions = {
+  "Hlavní město Praha": { lat: 50.1348586, lng: 14.4438744 },
+  "Středočeský kraj": { lat: 49.9826792, lng: 14.962111 },
+  "Karlovarský kraj": { lat: 50.2234664, lng: 12.6228906 },
+  "Ústecký kraj": { lat: 50.4758394, lng: 13.6006739 },
+  "Liberecký kraj": { lat: 50.8102525, lng: 15.0563622 },
+  "Královehradecký kraj": { lat: 50.2831753, lng: 15.8913233 },
+  "Pardubický kraj": { lat: 49.990945, lng: 15.8199122 },
+  "Olomoucký kraj": { lat: 49.6720497, lng: 17.0778467 },
+  "Moravskoslezský kraj": { lat: 49.7998603, lng: 18.0336572 },
+  "Zlínský kraj": { lat: 49.2328219, lng: 17.7699853 },
+  "Jihomoravský kraj": { lat: 49.1502528, lng: 16.6164208 },
+  "Kraj Vysočina": { lat: 49.5153797, lng: 15.4353906 },
+  "Jihočeský kraj": { lat: 49.0063261, lng: 14.4905664 },
+  "Plzeňský kraj": { lat: 49.6436017, lng: 13.2930567 },
+};
