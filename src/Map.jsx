@@ -6,7 +6,7 @@ import { debounce } from "lodash";
 
 import { publicUrl } from "./shared.js";
 
-const Map = ({ offices, peopleByDistricts }) => {
+const Map = ({ offices, peopleByDistricts, officesByDistricts }) => {
   const peopleMarkers = React.useMemo(() => {
     const markers = [];
 
@@ -23,6 +23,23 @@ const Map = ({ offices, peopleByDistricts }) => {
 
     return markers;
   }, [peopleByDistricts]);
+
+  const officesMarkers = React.useMemo(() => {
+    const markers = [];
+
+    Object.keys(officesByDistricts).forEach((district) => {
+      for (let i = 0; i < officesByDistricts[district]; i++) {
+        markers.push({
+          position: districtPositions[district]
+            ? districtPositions[district]
+            : mapContainerCenter,
+          popupLabel: "Ordinace v regionu " + district,
+        });
+      }
+    });
+
+    return markers;
+  }, [officesByDistricts]);
 
   const containerRef = React.useRef(null);
   const [width, setWidth] = React.useState(null);
@@ -73,6 +90,15 @@ const Map = ({ offices, peopleByDistricts }) => {
             {peopleMarkers.map((marker, markerIndex) => (
               <Marker
                 key={`person-${markerIndex}`}
+                icon={markerIcon}
+                position={marker.position}
+              >
+                <Popup>{marker.popupLabel}</Popup>
+              </Marker>
+            ))}
+            {officesMarkers.map((marker, markerIndex) => (
+              <Marker
+                key={`office-legacy-${markerIndex}`}
                 icon={markerIcon}
                 position={marker.position}
               >

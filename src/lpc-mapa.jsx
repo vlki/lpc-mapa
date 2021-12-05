@@ -7,6 +7,7 @@ import { uniq } from "lodash";
 
 import peopleByDistrictsNew from "./people_by_districts.json";
 import peopleByDistrictsLegacy from "./people_by_districts_legacy.json";
+import officesByDistrictsLegacy from "./offices_by_districts_legacy.json";
 import offices from "./offices.json";
 import Map from "./Map.jsx";
 
@@ -37,16 +38,30 @@ const LpcMapaApp = () => {
     );
   }, [peopleByDistricts]);
 
+  const officesCount = React.useMemo(() => {
+    return (
+      offices.length +
+      Object.values(officesByDistrictsLegacy).reduce(
+        (carry, value) => carry + value,
+        0
+      )
+    );
+  }, [officesByDistrictsLegacy, offices]);
+
   return (
     <div>
       <div className="lpc-mapa--header-currently">
-        Aktuálně máme registrováno {offices.length}&nbsp;ambulancí a&nbsp;
+        Aktuálně máme registrováno {officesCount}&nbsp;ambulancí a&nbsp;
         {peopleCount}
         &nbsp;dobrovolníků z&nbsp;celé ČR
       </div>
 
       <div className="lpc-mapa--map-container">
-        <Map offices={offices} peopleByDistricts={peopleByDistricts} />
+        <Map
+          offices={offices}
+          peopleByDistricts={peopleByDistricts}
+          officesByDistricts={officesByDistrictsLegacy}
+        />
       </div>
     </div>
   );
