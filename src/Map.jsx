@@ -2,7 +2,7 @@ import React from "react";
 import { icon } from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import { uniq } from "lodash";
+import { debounce } from "lodash";
 
 import { publicUrl } from "./shared.js";
 
@@ -24,42 +24,78 @@ const Map = ({ offices, peopleByDistricts }) => {
     return markers;
   }, [peopleByDistricts]);
 
+  const containerRef = React.useRef(null);
+  const [width, setWidth] = React.useState(null);
+
+  const onWindowResize = React.useCallback(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      setWidth(rect.width);
+    }
+  }, []);
+  const onWindowResizeDebounced = React.useCallback(
+    debounce(onWindowResize, 100),
+    [onWindowResize]
+  );
+
+  React.useEffect(() => {
+    window.addEventListener("resize", onWindowResizeDebounced);
+    onWindowResize();
+    return () => {
+      window.removeEventListener("resize", onWindowResizeDebounced);
+    };
+  }, [onWindowResize, onWindowResizeDebounced]);
+
+  let zoom = 7;
+  if (width < 600) {
+    zoom = 6;
+  }
+
+  let height = 400;
+  if (width < 600) {
+    height = 300;
+  }
+
   return (
-    <MapContainer
-      center={mapContainerCenter}
-      zoom={7}
-      scrollWheelZoom={false}
-      style={{ width: "100%", height: 400 }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <MarkerClusterGroup maxClusterRadius={5}>
-        {peopleMarkers.map((marker, markerIndex) => (
-          <Marker
-            key={`person-${markerIndex}`}
-            icon={markerIcon}
-            position={marker.position}
-          >
-            <Popup>{marker.popupLabel}</Popup>
-          </Marker>
-        ))}
-        {offices.map((office, officeIndex) => (
-          <Marker
-            key={`office-${officeIndex}`}
-            icon={markerIcon}
-            position={office}
-          >
-            <Popup>
-              <strong>{office.name}</strong>
-              <br />
-              Ordinace na adrese {office.address}
-            </Popup>
-          </Marker>
-        ))}
-      </MarkerClusterGroup>
-    </MapContainer>
+    <div ref={containerRef}>
+      {width !== null && (
+        <MapContainer
+          center={mapContainerCenter}
+          zoom={zoom}
+          scrollWheelZoom={false}
+          style={{ width: "100%", height }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <MarkerClusterGroup maxClusterRadius={5}>
+            {peopleMarkers.map((marker, markerIndex) => (
+              <Marker
+                key={`person-${markerIndex}`}
+                icon={markerIcon}
+                position={marker.position}
+              >
+                <Popup>{marker.popupLabel}</Popup>
+              </Marker>
+            ))}
+            {offices.map((office, officeIndex) => (
+              <Marker
+                key={`office-${officeIndex}`}
+                icon={markerIcon}
+                position={office}
+              >
+                <Popup>
+                  <strong>{office.name}</strong>
+                  <br />
+                  Ordinace na adrese {office.address}
+                </Popup>
+              </Marker>
+            ))}
+          </MarkerClusterGroup>
+        </MapContainer>
+      )}
+    </div>
   );
 };
 

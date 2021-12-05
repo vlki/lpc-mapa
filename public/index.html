@@ -7,14 +7,37 @@
     <title>Lékaři pomáhají Česku - interaktivní mapa</title>
   </head>
 
-  <body>
-    <div style="max-width: 700px;margin: 0 auto;">
+  <body style="margin: 0;">
+    <div style="max-width: 700px;margin: 0 auto;padding: 0 30px;">
       
       <!-- embed code START -->
+      <div id="lpc-mapa-registration">
+        <div class="lpc-mapa--registration-top">
+          <img src="doctor-icon.svg" alt="Ilustrace doktora" />
+          <div class="lpc-mapa--registration-top-line1">Jste lékař, ambulantní zařízení nebo dobrovolník</div>
+          <div class="lpc-mapa--registration-top-line2">a chcete pomoci?</div>
+        </div>
+        <div class="lpc-mapa--registration-buttons-container">
+          <div class="lpc-mapa--registration-buttons-left">
+            <img class="lpc-mapa--registration-buttons-arrow-left" src="arrow-left.svg" alt="" />
+            <div class="lpc-mapa--registration-buttons-line">Máte ordinaci a&nbsp;chcete v&nbsp;ní očkovat?</div>
+            <a class="lpc-mapa--registration-button" href="https://docs.google.com/forms/d/e/1FAIpQLSdA63UpmkKIcOK7KpVOw_xtHs72Hd70oyUgKVQNV7ugCyarfg/viewform?usp=sf_link" target="_blank">
+              Registrace ordinace
+            </a>
+          </div>
+          <div class="lpc-mapa--registration-buttons-right">
+            <img class="lpc-mapa--registration-buttons-arrow-right" src="arrow-right.svg" alt="" />
+            <div class="lpc-mapa--registration-buttons-line">Chcete očkovat v&nbsp;existujícím OČM?</div>
+            <a class="lpc-mapa--registration-button" href="https://docs.google.com/forms/d/e/1FAIpQLScGU2ugN0LMlA8rEAoy9_tkIr6myGal5IxmyRkI4EBNm_QRcg/viewform?usp=sf_link" target="_blank">
+              Registrace dobrovolníka
+            </a>
+          </div>
+        </div>
+      </div>
       <div id="lpc-mapa-root"></div>
       <script src="lpc-mapa.js" type="text/javascript"></script>
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;700&display=swap');
         @import url('leaflet.css');
         @import url('leaflet.markercluster.css');
         @import url('lpc-mapa.css');
