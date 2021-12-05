@@ -51,7 +51,7 @@ const LpcMapaApp = () => {
   return (
     <div>
       <div className="lpc-mapa--header-currently">
-        Aktuálně máme registrováno {officesCount}&nbsp;ambulancí a&nbsp;
+        Aktuálně máme registrováno {officesCount}&nbsp;ordinací a&nbsp;
         {peopleCount}
         &nbsp;dobrovolníků z&nbsp;celé ČR
       </div>
