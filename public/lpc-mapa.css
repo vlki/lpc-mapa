@@ -1,6 +1,6 @@
 
 #lpc-mapa-root .lpc-mapa--header-currently {
-  font-family: 'Sora', 'Open Sans', sans-serif;
+  font-family: 'Sora', serif;
   font-size: 24px;
   font-weight: 700;
   line-height: 1.4;
@@ -10,4 +10,79 @@
 
 #lpc-mapa-root .lpc-mapa--map-container {
   margin: 30px 0 0 0;
+}
+
+/* Leaflet popup */
+
+#lpc-mapa-root .leaflet-popup-content {
+  font-size: 12px;
+  font-family: "Sora", serif;
+  font-weight: 400;
+  color: #000000;
+}
+
+/* Leaflet marker cluster */
+
+#lpc-mapa-root .marker-cluster-small {
+	background-color: rgba(181, 226, 140, 0.6);
+	}
+#lpc-mapa-root .marker-cluster-small div {
+	background-color: rgba(110, 204, 57, 0.6);
+	}
+
+#lpc-mapa-root .marker-cluster-medium {
+	background-color: rgba(241, 211, 87, 0.6);
+	}
+#lpc-mapa-root .marker-cluster-medium div {
+	background-color: rgba(240, 194, 12, 0.6);
+	}
+
+#lpc-mapa-root .marker-cluster-large {
+	background-color: rgba(253, 156, 115, 0.6);
+	}
+#lpc-mapa-root .marker-cluster-large div {
+	background-color: rgba(241, 128, 23, 0.6);
+	}
+
+	/* IE 6-8 fallback colors */
+#lpc-mapa-root .leaflet-oldie .marker-cluster-small {
+	background-color: rgb(181, 226, 140);
+	}
+#lpc-mapa-root .leaflet-oldie .marker-cluster-small div {
+	background-color: rgb(110, 204, 57);
+	}
+
+#lpc-mapa-root .leaflet-oldie .marker-cluster-medium {
+	background-color: rgb(241, 211, 87);
+	}
+#lpc-mapa-root .leaflet-oldie .marker-cluster-medium div {
+	background-color: rgb(240, 194, 12);
+	}
+
+#lpc-mapa-root .leaflet-oldie .marker-cluster-large {
+	background-color: rgb(253, 156, 115);
+	}
+#lpc-mapa-root .leaflet-oldie .marker-cluster-large div {
+	background-color: rgb(241, 128, 23);
+}
+
+#lpc-mapa-root .marker-cluster {
+	background-clip: padding-box;
+	border-radius: 20px;
+}
+#lpc-mapa-root .marker-cluster div {
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	margin-top: 5px;
+
+	text-align: center;
+	border-radius: 15px;
+  font-size: 12px;
+  font-family: "Sora", serif;
+  font-weight: 700;
+  color: #000000;
+}
+#lpc-mapa-root .marker-cluster span {
+	line-height: 30px;
 }

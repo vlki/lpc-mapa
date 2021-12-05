@@ -18,13 +18,13 @@ const LpcMapaApp = () => {
 
   return (
     <div>
-      <div class="lpc-mapa--header-currently">
+      <div className="lpc-mapa--header-currently">
         Aktuálně máme registrováno {offices.length}&nbsp;ambulancí a&nbsp;
         {peopleCount}
         &nbsp;dobrovolníků z&nbsp;celé ČR
       </div>
 
-      <div class="lpc-mapa--map-container">
+      <div className="lpc-mapa--map-container">
         <Map offices={offices} peopleByDistricts={peopleByDistricts} />
       </div>
     </div>
