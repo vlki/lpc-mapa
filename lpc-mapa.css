@@ -1,0 +1,13 @@
+
+#lpc-mapa-root .lpc-mapa--header-currently {
+  font-family: 'Sora', 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #2C2E83;
+  text-align: center;
+}
+
+#lpc-mapa-root .lpc-mapa--map-container {
+  margin: 30px 0 0 0;
+}
