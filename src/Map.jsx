@@ -69,7 +69,7 @@ const Map = ({ offices, peopleByDistricts }) => {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <MarkerClusterGroup maxClusterRadius={5}>
+          <MarkerClusterGroup maxClusterRadius={30}>
             {peopleMarkers.map((marker, markerIndex) => (
               <Marker
                 key={`person-${markerIndex}`}

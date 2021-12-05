@@ -3,12 +3,33 @@ import "whatwg-fetch";
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { uniq } from "lodash";
 
-import peopleByDistricts from "./people_by_districts.json";
+import peopleByDistrictsNew from "./people_by_districts.json";
+import peopleByDistrictsLegacy from "./people_by_districts_legacy.json";
 import offices from "./offices.json";
 import Map from "./Map.jsx";
 
 const LpcMapaApp = () => {
+  const peopleByDistricts = React.useMemo(() => {
+    return uniq([
+      ...Object.keys(peopleByDistrictsNew),
+      ...Object.keys(peopleByDistrictsLegacy),
+    ]).reduce((carry, district) => {
+      return {
+        ...carry,
+        [district]:
+          (peopleByDistrictsNew[district]
+            ? peopleByDistrictsNew[district]
+            : 0) +
+          (peopleByDistrictsLegacy[district]
+            ? peopleByDistrictsLegacy[district]
+            : 0),
+      };
+    }, {});
+  }, [peopleByDistrictsNew, peopleByDistrictsLegacy]);
+  console.log(peopleByDistricts);
+
   const peopleCount = React.useMemo(() => {
     return Object.values(peopleByDistricts).reduce(
       (carry, value) => carry + value,
