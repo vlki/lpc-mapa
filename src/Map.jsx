@@ -4,6 +4,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { uniq } from "lodash";
 
+import { publicUrl } from "./shared.js";
+
 const Map = ({ offices, peopleByDistricts }) => {
   const peopleMarkers = React.useMemo(() => {
     const markers = [];
@@ -67,7 +69,7 @@ export default Map;
 const mapContainerCenter = [49.8, 15.6];
 
 const markerIcon = icon({
-  iconUrl: "marker-icon.png",
+  iconUrl: publicUrl("marker-icon.png"),
   iconSize: [25, 41],
 });
 
