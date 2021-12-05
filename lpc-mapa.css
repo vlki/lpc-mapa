@@ -1,5 +1,131 @@
+/* Static registration section */
+
+#lpc-mapa-registration {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-top {
+  background: #009EE2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-top-line1 {
+  margin: 20px 0 0 0;
+  font-family: 'Sora', serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #ffffff;
+  text-align: center;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-top-line2 {
+  font-family: 'Sora', serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #ffffff;
+  text-align: center;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-buttons-container {
+  margin: 4px 0 0 0;
+  display: flex;
+  flex-direction: row;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-buttons-left {
+  position: relative;
+  background: #009EE2;
+  padding: 60px 15px 35px;
+  flex: 1 0 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-buttons-right {
+  position: relative;
+  background: #35A8E0;
+  padding: 60px 15px 35px;
+  flex: 1 0 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-buttons-arrow-left {
+  position: absolute;
+  top: -32px;
+  left: 40%;
+  margin-left: -13.5px;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-buttons-arrow-right {
+  position: absolute;
+  top: -32px;
+  right: 40%;
+  margin-right: -13.5px;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-buttons-line {
+  margin: 0 0 35px 0;
+  font-family: 'Sora', serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #ffffff;
+  text-align: center;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-button {
+  align-self: stretch;
+  display: block;
+  margin: 0;
+  padding: 10px;
+  background: #2D2E82;
+  border-radius: 4px;
+  box-shadow: 0 2px 7px 0 rgba(44,46,131,0.80);
+
+  font-family: 'Sora', serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+}
+
+#lpc-mapa-registration .lpc-mapa--registration-button:hover,
+#lpc-mapa-registration .lpc-mapa--registration-button:focus {
+  background-color: black;
+  text-decoration: none;
+  color: #ffffff;
+} 
+
+@media screen and (max-width: 500px) {
+  #lpc-mapa-registration {
+    margin: 0 -30px;
+  }
+
+  #lpc-mapa-registration .lpc-mapa--registration-buttons-line {
+    font-size: 16px;
+  }
+
+  #lpc-mapa-registration .lpc-mapa--registration-button {
+    font-size: 13px;
+  }
+}
+
+/* React map */
 
 #lpc-mapa-root .lpc-mapa--header-currently {
+  margin: 60px 0 0 0;
   font-family: 'Sora', serif;
   font-size: 24px;
   font-weight: 700;
@@ -10,6 +136,17 @@
 
 #lpc-mapa-root .lpc-mapa--map-container {
   margin: 30px 0 0 0;
+}
+
+@media screen and (max-width: 500px) {
+  #lpc-mapa-root {
+    margin: 0 -30px;
+  }
+
+  #lpc-mapa-root .lpc-mapa--header-currently {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
 }
 
 /* Leaflet popup */
