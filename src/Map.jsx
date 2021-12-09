@@ -95,7 +95,7 @@ const Map = ({
           <MarkerClusterGroup maxClusterRadius={30}>
             {["all", "people"].includes(display) && (
               <>
-                {/* {peopleMarkers.map((marker, markerIndex) => (
+                {peopleMarkers.map((marker, markerIndex) => (
                   <Marker
                     key={`person-legacy-${markerIndex}`}
                     icon={markerIconPerson}
@@ -103,7 +103,7 @@ const Map = ({
                   >
                     <Popup>{marker.popupLabel}</Popup>
                   </Marker>
-                ))} */}
+                ))}
                 {people.map((person, personIndex) => (
                   <Marker
                     key={`person-${personIndex}`}
