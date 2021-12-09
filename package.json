@@ -21,6 +21,7 @@
     "webpack-cli": "^4.1.0"
   },
   "dependencies": {
+    "clsx": "^1.1.1",
     "core-js": "^3.6.5",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.20",

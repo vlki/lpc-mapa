@@ -6,7 +6,7 @@ import { debounce } from "lodash";
 
 import { publicUrl } from "./shared.js";
 
-const Map = ({ offices, peopleByDistricts, officesByDistricts }) => {
+const Map = ({ display, offices, peopleByDistricts, officesByDistricts }) => {
   const peopleMarkers = React.useMemo(() => {
     const markers = [];
 
@@ -68,7 +68,7 @@ const Map = ({ offices, peopleByDistricts, officesByDistricts }) => {
     zoom = 6;
   }
 
-  let height = 400;
+  let height = 500;
   if (width < 600) {
     height = 300;
   }
@@ -87,37 +87,45 @@ const Map = ({ offices, peopleByDistricts, officesByDistricts }) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <MarkerClusterGroup maxClusterRadius={30}>
-            {peopleMarkers.map((marker, markerIndex) => (
-              <Marker
-                key={`person-${markerIndex}`}
-                icon={markerIcon}
-                position={marker.position}
-              >
-                <Popup>{marker.popupLabel}</Popup>
-              </Marker>
-            ))}
-            {officesMarkers.map((marker, markerIndex) => (
-              <Marker
-                key={`office-legacy-${markerIndex}`}
-                icon={markerIcon}
-                position={marker.position}
-              >
-                <Popup>{marker.popupLabel}</Popup>
-              </Marker>
-            ))}
-            {offices.map((office, officeIndex) => (
-              <Marker
-                key={`office-${officeIndex}`}
-                icon={markerIcon}
-                position={office}
-              >
-                <Popup>
-                  <strong>{office.name}</strong>
-                  <br />
-                  Ordinace na adrese {office.address}
-                </Popup>
-              </Marker>
-            ))}
+            {["all", "people"].includes(display) && (
+              <>
+                {peopleMarkers.map((marker, markerIndex) => (
+                  <Marker
+                    key={`person-${markerIndex}`}
+                    icon={markerIconPerson}
+                    position={marker.position}
+                  >
+                    <Popup>{marker.popupLabel}</Popup>
+                  </Marker>
+                ))}
+              </>
+            )}
+            {["all", "offices"].includes(display) && (
+              <>
+                {officesMarkers.map((marker, markerIndex) => (
+                  <Marker
+                    key={`office-legacy-${markerIndex}`}
+                    icon={markerIconOffice}
+                    position={marker.position}
+                  >
+                    <Popup>{marker.popupLabel}</Popup>
+                  </Marker>
+                ))}
+                {offices.map((office, officeIndex) => (
+                  <Marker
+                    key={`office-${officeIndex}`}
+                    icon={markerIconOffice}
+                    position={office}
+                  >
+                    <Popup>
+                      <strong>{office.name}</strong>
+                      <br />
+                      Ordinace na adrese {office.address}
+                    </Popup>
+                  </Marker>
+                ))}
+              </>
+            )}
           </MarkerClusterGroup>
         </MapContainer>
       )}
@@ -130,9 +138,14 @@ export default Map;
 // Center Czechia
 const mapContainerCenter = [49.8, 15.6];
 
-const markerIcon = icon({
-  iconUrl: publicUrl("marker-icon.png"),
-  iconSize: [25, 41],
+const markerIconOffice = icon({
+  iconUrl: publicUrl("marker-icon-office.png"),
+  iconSize: [23, 29],
+});
+
+const markerIconPerson = icon({
+  iconUrl: publicUrl("marker-icon-person.png"),
+  iconSize: [23, 29],
 });
 
 const districtPositions = {

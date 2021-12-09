@@ -4,7 +4,9 @@ import "whatwg-fetch";
 import React from "react";
 import ReactDOM from "react-dom";
 import { uniq } from "lodash";
+import clsx from "clsx";
 
+import { publicUrl } from "./shared.js";
 import peopleByDistrictsNew from "./people_by_districts.json";
 import peopleByDistrictsLegacy from "./people_by_districts_legacy.json";
 import officesByDistrictsLegacy from "./offices_by_districts_legacy.json";
@@ -12,6 +14,8 @@ import offices from "./offices.json";
 import Map from "./Map.jsx";
 
 const LpcMapaApp = () => {
+  const [display, setDisplay] = React.useState("all");
+
   const peopleByDistricts = React.useMemo(() => {
     return uniq([
       ...Object.keys(peopleByDistrictsNew),
@@ -56,8 +60,41 @@ const LpcMapaApp = () => {
         &nbsp;dobrovolníků z&nbsp;celé ČR
       </div>
 
+      <div className="lpc-mapa--display-switch">
+        <button
+          type="button"
+          onClick={() => setDisplay("all")}
+          className={clsx({ active: display === "all" })}
+        >
+          Zobrazit vše
+        </button>
+        <button
+          type="button"
+          onClick={() => setDisplay("offices")}
+          className={clsx({ active: display === "offices" })}
+        >
+          <img
+            src={publicUrl("marker-icon-office.png")}
+            alt="Mapová ikona ordinace"
+          />
+          Pouze ordinace
+        </button>
+        <button
+          type="button"
+          onClick={() => setDisplay("people")}
+          className={clsx({ active: display === "people" })}
+        >
+          <img
+            src={publicUrl("marker-icon-person.png")}
+            alt="Mapová ikona dobrovolníka"
+          />
+          Pouze dobrovolníci
+        </button>
+      </div>
+
       <div className="lpc-mapa--map-container">
         <Map
+          display={display}
           offices={offices}
           peopleByDistricts={peopleByDistricts}
           officesByDistricts={officesByDistrictsLegacy}
