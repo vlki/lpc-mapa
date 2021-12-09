@@ -6,7 +6,13 @@ import { debounce } from "lodash";
 
 import { publicUrl } from "./shared.js";
 
-const Map = ({ display, offices, peopleByDistricts, officesByDistricts }) => {
+const Map = ({
+  display,
+  offices,
+  people,
+  peopleByDistricts,
+  officesByDistricts,
+}) => {
   const peopleMarkers = React.useMemo(() => {
     const markers = [];
 
@@ -89,13 +95,28 @@ const Map = ({ display, offices, peopleByDistricts, officesByDistricts }) => {
           <MarkerClusterGroup maxClusterRadius={30}>
             {["all", "people"].includes(display) && (
               <>
-                {peopleMarkers.map((marker, markerIndex) => (
+                {/* {peopleMarkers.map((marker, markerIndex) => (
                   <Marker
-                    key={`person-${markerIndex}`}
+                    key={`person-legacy-${markerIndex}`}
                     icon={markerIconPerson}
                     position={marker.position}
                   >
                     <Popup>{marker.popupLabel}</Popup>
+                  </Marker>
+                ))} */}
+                {people.map((person, personIndex) => (
+                  <Marker
+                    key={`person-${personIndex}`}
+                    icon={markerIconPerson}
+                    position={
+                      districtPositions[person.district]
+                        ? districtPositions[person.district]
+                        : mapContainerCenter
+                    }
+                  >
+                    <Popup>
+                      {person.type} v regionu {person.district}
+                    </Popup>
                   </Marker>
                 ))}
               </>

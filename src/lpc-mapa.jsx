@@ -7,7 +7,7 @@ import { uniq } from "lodash";
 import clsx from "clsx";
 
 import { publicUrl } from "./shared.js";
-import peopleByDistrictsNew from "./people_by_districts.json";
+import people from "./people.json";
 import peopleByDistrictsLegacy from "./people_by_districts_legacy.json";
 import officesByDistrictsLegacy from "./offices_by_districts_legacy.json";
 import offices from "./offices.json";
@@ -15,6 +15,16 @@ import Map from "./Map.jsx";
 
 const LpcMapaApp = () => {
   const [display, setDisplay] = React.useState("all");
+
+  const peopleByDistrictsNew = React.useMemo(() => {
+    return people.reduce((carry, person) => {
+      if (carry[person.district] === undefined) {
+        carry[person.district] = 0;
+      }
+      carry[person.district] += 1;
+      return carry;
+    }, {});
+  }, [people]);
 
   const peopleByDistricts = React.useMemo(() => {
     return uniq([
@@ -96,7 +106,8 @@ const LpcMapaApp = () => {
         <Map
           display={display}
           offices={offices}
-          peopleByDistricts={peopleByDistricts}
+          people={people}
+          peopleByDistricts={peopleByDistrictsLegacy}
           officesByDistricts={officesByDistrictsLegacy}
         />
       </div>
